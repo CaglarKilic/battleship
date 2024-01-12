@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "jest",
     "start": "webpack serve --open",
     "build": "webpack"
   },
@@ -12,6 +12,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.23.7",
+    "@babel/preset-env": "^7.23.8",
+    "babel-jest": "^29.7.0",
     "css-loader": "^6.9.0",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.56.0",
