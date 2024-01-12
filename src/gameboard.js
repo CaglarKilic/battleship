@@ -33,6 +33,10 @@ class Gameboard {
       this.missed.push(coordinate1D);
     }
   }
+
+  reportStatus() {
+    return Array.prototype.every.call(this.ships, (ship) => ship.isSunk());
+  }
 }
 
 export default Gameboard;

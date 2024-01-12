@@ -40,7 +40,7 @@ test("Testing board", () => {
   expect(ship4).toBeNull();
 });
 
-test("Receive attack", ()=>{
+test("Receive attack", () => {
   const board = new Gameboard();
   board.placeShip(5, 50, "horizontal");
   board.receiveAttack(50);
@@ -51,4 +51,16 @@ test("Receive attack", ()=>{
   board.receiveAttack(55);
   expect(board.ships[50].isSunk()).toBeTruthy();
   expect(board.missed.length).toEqual(1);
-})
+});
+
+test("Report status", () => {
+  const board = new Gameboard();
+  board.placeShip(3, 0, "horizontal");
+  board.placeShip(2, 55, "vertical");
+  board.receiveAttack(0);
+  board.receiveAttack(1);
+  board.receiveAttack(2);
+  board.receiveAttack(55);
+  board.receiveAttack(65);
+  expect(board.reportStatus()).toBeTruthy();
+});
