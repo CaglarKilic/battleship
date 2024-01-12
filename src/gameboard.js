@@ -1,18 +1,19 @@
 import Ship from "./ship";
 
 class Gameboard {
-  #size = 10;
+  size = 10;
 
-  #direction = { horizontal: 1, vertical: this.#size };
+  #direction = { horizontal: 1, vertical: this.size };
 
   constructor() {
     this.ships = {};
     this.missed = [];
+    this.hit = [];
   }
 
   placeShip(length, coordinate1D, direction) {
     const coorDiff = (len, dir) => this.#direction[dir] * len;
-    const valid = coordinate1D + coorDiff(length, direction) < this.#size ** 2;
+    const valid = coordinate1D + coorDiff(length, direction) < this.size ** 2;
 
     if (valid) {
       const ship = new Ship(length);
@@ -29,6 +30,7 @@ class Gameboard {
     const ship = this.ships[coordinate1D];
     if (ship) {
       ship.hit();
+      this.hit.push(coordinate1D);
     } else {
       this.missed.push(coordinate1D);
     }

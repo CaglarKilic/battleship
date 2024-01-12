@@ -1,5 +1,6 @@
 import Ship from "../src/ship";
 import Gameboard from "../src/gameboard";
+import Player from "../src/player";
 
 test("Testing hit funtion", () => {
   const ship = new Ship();
@@ -51,6 +52,7 @@ test("Receive attack", () => {
   board.receiveAttack(55);
   expect(board.ships[50].isSunk()).toBeTruthy();
   expect(board.missed.length).toEqual(1);
+  expect(board.missed.length + board.hit.length).toEqual(6);
 });
 
 test("Report status", () => {
@@ -63,4 +65,13 @@ test("Report status", () => {
   board.receiveAttack(55);
   board.receiveAttack(65);
   expect(board.reportStatus()).toBeTruthy();
+});
+
+test("Ai attacks", () => {
+  const board = new Gameboard();
+  board.placeShip(5, 45, "horizontal");
+  const player = new Player(true);
+  player.attack(board);
+  player.attack(board);
+  expect(board.missed.length + board.hit.length).toEqual(2);
 });
