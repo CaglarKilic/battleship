@@ -39,3 +39,16 @@ test("Testing board", () => {
   const ship4 = board.placeShip(5, 60, "vertical");
   expect(ship4).toBeNull();
 });
+
+test("Receive attack", ()=>{
+  const board = new Gameboard();
+  board.placeShip(5, 50, "horizontal");
+  board.receiveAttack(50);
+  board.receiveAttack(51);
+  board.receiveAttack(52);
+  board.receiveAttack(53);
+  board.receiveAttack(54);
+  board.receiveAttack(55);
+  expect(board.ships[50].isSunk()).toBeTruthy();
+  expect(board.missed.length).toEqual(1);
+})

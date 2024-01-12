@@ -7,6 +7,7 @@ class Gameboard {
 
   constructor() {
     this.ships = {};
+    this.missed = [];
   }
 
   placeShip(length, coordinate1D, direction) {
@@ -22,6 +23,15 @@ class Gameboard {
     }
 
     return null;
+  }
+
+  receiveAttack(coordinate1D) {
+    const ship = this.ships[coordinate1D];
+    if (ship) {
+      ship.hit();
+    } else {
+      this.missed.push(coordinate1D);
+    }
   }
 }
 
