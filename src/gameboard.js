@@ -12,13 +12,17 @@ class Gameboard {
   }
 
   placeShip(length, coordinate1D, direction) {
-    const coorDiff = (len, dir) => this.#direction[dir] * len;
-    const valid = coordinate1D + coorDiff(length, direction) < this.size ** 2;
+    const coorDiff = (len, dir) => this.#direction[dir] * (len - 1);
+    const validVertical =
+      coordinate1D + coorDiff(length, direction) < this.size ** 2;
+    const validHorizontal = (length + coordinate1D) % 10 > coordinate1D % 10;
 
-    if (valid) {
+    const valid = { horizontal: validHorizontal, vertical: validVertical };
+
+    if (valid[direction]) {
       const ship = new Ship(length);
       for (let i = 0; i < length; i += 1) {
-        this.ships[coordinate1D + coorDiff(i, direction)] = ship;
+        this.ships[coordinate1D + i * this.#direction[direction]] = ship;
       }
       return ship;
     }

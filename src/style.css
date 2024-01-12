@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  color: white;
+}
+
+body {
+  height: 100svh;
+  background-color: black;
+  padding-top: 2rem;
+}
+
+.ship {
+  background-color: blue;
+}
+
+section {
+  display: grid;
+  grid-template-rows: 5rem auto;
+  h1 {
+    grid-row: 1;
+    grid-column: 1 / span 2;
+    justify-self: center;
+  }
+}
+
+div#player {
+  grid-row: 2;
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: repeat(10, 50px);
+  justify-self: center;
+
+  div {
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+  }
+
+  :not(div:nth-child(n + 11)) {
+    border-top: 1px solid white;
+  }
+
+  div:nth-child(10n + 1) {
+    border-left: 1px solid white;
+  }
+}
+
+div#ai {
+  grid-row: 2;
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(10, 50px);
+  justify-self: center;
+
+  div {
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    height: 50px;
+  }
+
+  :not(div:nth-child(n + 11)) {
+    border-top: 1px solid white;
+  }
+
+  div:nth-child(10n + 1) {
+    border-left: 1px solid white;
+  }
+}

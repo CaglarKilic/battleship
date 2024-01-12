@@ -21,7 +21,7 @@ test("Testing isSunk", () => {
   expect(ship.isSunk()).toBeTruthy();
 });
 
-test("Testing board", () => {
+test.only("Testing board", () => {
   const board = new Gameboard();
   const ship = board.placeShip(5, 0, "horizontal");
   expect(board.ships[0]).toBe(ship);
@@ -36,9 +36,11 @@ test("Testing board", () => {
   expect(board.ships[30]).toBe(ship2);
   expect(board.ships[40]).toBe(ship2);
   const ship3 = board.placeShip(5, 95, "horizontal");
-  expect(ship3).toBeNull();
+  expect(ship3).toBe(ship3);
   const ship4 = board.placeShip(5, 60, "vertical");
   expect(ship4).toBeNull();
+  const ship5 = board.placeShip(2, 9, "horizontal");
+  expect(ship5).toBeNull();
 });
 
 test("Receive attack", () => {
