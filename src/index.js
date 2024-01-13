@@ -14,5 +14,9 @@ import "./style.css";
     aiBoard.placeShip(i, i * 10, "horizontal");
   }
 
-  Dom.placeShips(playerBoard, aiBoard);
+  Dom.placeShips(playerBoard);
+  const hitPlayer = Dom.hitSquare.bind(null, playerBoard);
+  const hitAi = Dom.hitSquare.bind(null, aiBoard);
+  document.querySelector("#player").addEventListener("click", hitPlayer);
+  document.querySelector("#ai").addEventListener("click", hitAi);
 })();

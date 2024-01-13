@@ -38,10 +38,11 @@ class Gameboard {
     } else {
       this.missed.push(coordinate1D);
     }
+    return ship;
   }
 
   reportStatus() {
-    return Array.prototype.every.call(this.ships, (ship) => ship.isSunk());
+    return Object.values(this.ships).every((ship) => ship.isSunk());
   }
 }
 
