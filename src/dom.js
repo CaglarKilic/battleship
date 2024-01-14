@@ -21,17 +21,56 @@ const Dom = (() => {
     });
   }
 
-  function hitSquare(player, event) {
-    const { index } = event.target.dataset;
-    const ship = player.receiveAttack(index);
-    if (ship) {
+  function hitSquare(player, board, event) {
+    const index = event ? event.target.dataset.index : null;
+    const { ship, coordinate1D } = player.attack(board, index);
+    const playerIndex = playerBoard.querySelector(
+      `div[data-index="${coordinate1D}"]`
+    );
+    if (ship && event) {
       event.target.style.backgroundColor = "green";
-    } else {
+    } else if (!ship && event) {
       event.target.style.backgroundColor = "red";
+    } else if (ship) {
+      playerIndex.style.backgroundColor = "green";
+    } else {
+      playerIndex.style.backgroundColor = "red";
     }
   }
 
-  return { placeShips, hitSquare };
+  function checkEnd(boards) {
+    return boards.some((board) => board.reportStatus());
+  }
+
+  function reportWinner(boards) {
+    if (boards[1].reportStatus()) {
+      console.log("you win");
+    } else {
+      console.log("you lost");
+    }
+  }
+
+  function playGame(players, boards) {
+    aiBoard.addEventListener(
+      "mousedown",
+      (event) => {
+        hitSquare(players[0], boards[1], event);
+        if (checkEnd(boards)) {
+          reportWinner(boards);
+          return;
+        }
+        hitSquare(players[1], boards[0], null);
+        if (!checkEnd(boards)) {
+          playGame(players, boards);
+        } else {
+          reportWinner(boards);
+        }
+      },
+      { once: true }
+    );
+  }
+
+  return { placeShips, hitSquare, playGame };
 })();
 
 export default Dom;

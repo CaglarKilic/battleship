@@ -6,9 +6,9 @@ class Gameboard {
   #direction = { horizontal: 1, vertical: this.size };
 
   constructor() {
-    this.ships = {};
-    this.missed = [];
-    this.hit = [];
+    this.ships = new Set();
+    this.missed = new Set();
+    this.hit = new Set();
   }
 
   placeShip(length, coordinate1D, direction) {
@@ -34,11 +34,11 @@ class Gameboard {
     const ship = this.ships[coordinate1D];
     if (ship) {
       ship.hit();
-      this.hit.push(coordinate1D);
+      this.hit.add(coordinate1D);
     } else {
-      this.missed.push(coordinate1D);
+      this.missed.add(coordinate1D);
     }
-    return ship;
+    return { ship, coordinate1D };
   }
 
   reportStatus() {
